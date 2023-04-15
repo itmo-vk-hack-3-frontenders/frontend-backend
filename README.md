@@ -8,11 +8,12 @@
 make init
 ```
 
-| Адрес                          | Описание |
-|--------------------------------|----------|
-| http://localhost:1333          | Frontend |
-| http://localhost:2333          | Backend  |
-| http://localhost:2333/api/docs | Swagger  |
+| Адрес                              | Описание |
+|------------------------------------|----------|
+| http://localhost:4200              | Frontend |
+| http://localhost:3000              | Backend  |
+| http://localhost:3000/api          | Swagger  |
+| http://localhost:4211/projects/all | Граф     |
 
 ### Список доступных команд
 

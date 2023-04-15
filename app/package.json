@@ -11,7 +11,7 @@
     "build:backend": "nx build backend",
     "serve": "nx run-many --target=serve --projects=frontend,backend --parallel",
     "serve:watch": "nx run-many --target=serve --projects=frontend,backend --parallel --watch",
-    "graph": "nx graph --host=0.0.0.0",
+    "graph": "nx graph --open=false",
     "eslint:frontend": "nx run frontend:lint",
     "eslint:backend": "nx run backend:lint",
     "stylelint:frontend": "nx run frontend:stylelint",
