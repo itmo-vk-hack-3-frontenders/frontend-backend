@@ -1,4 +1,5 @@
-const { composePlugins, withNx } = require('@nrwl/webpack');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { composePlugins, withNx } = require("@nrwl/webpack");
 
 // Nx plugins for webpack.
 module.exports = composePlugins(withNx(), (config) => {

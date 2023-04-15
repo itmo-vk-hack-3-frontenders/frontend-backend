@@ -37,7 +37,10 @@
         "arrow": "parens-new-line",
         "prop": "parens-new-line"
       }
-    ]
+    ],
+    "indent": ["error", 2, {
+      "ignoredNodes": ["PropertyDefinition"]
+    }]
   },
   "parserOptions": {
     "ecmaFeatures": {
