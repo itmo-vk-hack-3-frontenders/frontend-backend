@@ -10,9 +10,9 @@ make init
 
 | Адрес                          | Описание |
 |--------------------------------|----------|
-| http://localhost:3333          | Frontend |
-| http://localhost:3333          | Backend  |
-| http://localhost:3333/api/docs | Swagger  |
+| http://localhost:1333          | Frontend |
+| http://localhost:2333          | Backend  |
+| http://localhost:2333/api/docs | Swagger  |
 
 ### Список доступных команд
 
