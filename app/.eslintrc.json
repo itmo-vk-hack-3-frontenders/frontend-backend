@@ -1,0 +1,50 @@
+{
+  "root": true,
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "ignorePatterns": [
+    "**/*"
+  ],
+  "extends": [
+    "@builtbysasha/eslint-config/react-ts"
+  ],
+  "rules": {
+    "react/jsx-tag-spacing": [
+      "error",
+      {
+        "closingSlash": "never",
+        "beforeSelfClosing": "always",
+        "afterOpening": "never",
+        "beforeClosing": "never"
+      }
+    ],
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off",
+    "react/jsx-sort-props": [
+      "error",
+      {
+        "shorthandFirst": true,
+        "multiline": "last",
+        "callbacksLast": true
+      }
+    ],
+    "react/jsx-wrap-multilines": [
+      "error",
+      {
+        "return": "parens-new-line",
+        "arrow": "parens-new-line",
+        "prop": "parens-new-line"
+      }
+    ]
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "parser": "@typescript-eslint/parser"
+}
