@@ -1,0 +1,39 @@
+version: "3.9"
+
+services:
+  app:
+    build:
+      target: app
+    container_name: ${COMPOSE_PROJECT_NAME}_app
+    restart: unless-stopped
+    tty: true
+    depends_on:
+      - postgres
+    links:
+      - postgres
+    env_file:
+      - .env
+    ports:
+      - ${BACKEND_PORT}:3000
+      - ${FRONTEND_PORT}:4200
+    volumes:
+      - ../app:/app
+
+  postgres:
+    image: postgres:latest
+    restart: always
+    container_name: ${COMPOSE_PROJECT_NAME}_postgres
+    ports:
+      - 5${TEAM_ID}:5432
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
