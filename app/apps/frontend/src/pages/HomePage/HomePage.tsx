@@ -1,7 +1,10 @@
-import React from "react";
+import { FC } from "react";
+import { AppLayout } from "../../widgets";
 
-export const HomePage = () => {
+export const HomePage: FC = () => {
   return (
-    <h1>klfsdjkl</h1>
+    <AppLayout>
+      <h1>App</h1>
+    </AppLayout>
   );
 };
