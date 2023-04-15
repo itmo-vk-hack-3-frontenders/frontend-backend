@@ -39,7 +39,7 @@ const list = [
 export const HomePage: FC = () => {
   return (
     <AppLayout>
-      <FilterSelect options={list} placeholder="Версия os" />
+      <FilterSelect keyParam="filter-os" options={list} placeholder="Версия os" />
       <LineChart data={data} options={options} />
     </AppLayout>
   );
