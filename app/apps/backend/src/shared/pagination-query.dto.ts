@@ -6,11 +6,11 @@ export class PaginationQueryDto {
   @IsOptional()
   @IsInt()
   @Min(1)
-  readonly page?: number;
+  page?: number;
 
   @ApiProperty({ required: false, default: 5 })
   @IsOptional()
   @IsInt()
   @Min(1)
-  readonly limit?: number;
+  limit?: number;
 }
