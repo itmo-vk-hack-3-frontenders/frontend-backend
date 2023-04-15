@@ -1,27 +1,33 @@
-import { FC, useEffect, useRef } from "react";
-import { Chart, ChartData } from "chart.js";
+import React, { useEffect, useRef } from "react";
+import Chart, { ChartData, ChartOptions } from "chart.js/auto";
+
+// Импортируем контроллер для графика типа "line"
+import { LineController, LineElement, PointElement, LinearScale, Title, Tooltip } from "chart.js";
+
+// Регистрируем контроллер для графика типа "line"
+Chart.register(LineController, LineElement, PointElement, LinearScale, Title, Tooltip);
 
 interface LineChartProps {
-  data: ChartData
+  data: ChartData;
+  options?: ChartOptions;
 }
 
-export const LineChart: FC<LineChartProps> = ({ data }) => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+export const LineChart: React.FC<LineChartProps> = ({ data, options }) => {
+  const chartRef = useRef<HTMLCanvasElement | null>(null);
+  const chartInstanceRef = useRef<Chart | null>(null);
 
   useEffect(() => {
-    if (!canvasRef.current) return;
-    const ctx = canvasRef.current.getContext("2d");
-    if (ctx) {
-      new Chart(ctx, {
+    if (chartRef.current) {
+      if (chartInstanceRef.current) {
+        chartInstanceRef.current.destroy();
+      }
+      chartInstanceRef.current = new Chart(chartRef.current, {
         type: "line",
-        data: data,
+        data,
+        options,
       });
     }
-  }, [data]);
+  }, [data, options]);
 
-  return (
-    <div>
-      <canvas ref={canvasRef} />
-    </div>
-  );
+  return <canvas ref={chartRef} />;
 };
