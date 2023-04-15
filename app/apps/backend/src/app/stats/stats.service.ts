@@ -1,4 +1,4 @@
-import { ConflictException, Injectable, InternalServerErrorException } from "@nestjs/common";
+import { ConflictException, Injectable, InternalServerErrorException, NotFoundException } from "@nestjs/common";
 import { CreateStatDto } from "./dto";
 import { InjectRepository } from "@nestjs/typeorm";
 import { DeviceEntity, StatEntity } from "./entities";
@@ -42,10 +42,10 @@ export class StatsService {
   async findAll(paginationQuery: PaginationQueryDto): Promise<StatEntity[]> {
     const { page = 1, limit = 10 } = paginationQuery ?? {};
 
-    return this.statsRepository.find({
+    return (await this.statsRepository.findAndCount({
       skip: (page - 1) * limit,
       take: limit,
-    });
+    }))[0];
   }
 
   async findDevices(paginationQuery: PaginationQueryDto): Promise<DeviceEntity[]> {
@@ -62,6 +62,8 @@ export class StatsService {
       where: {
         id,
       },
+    }).catch(e => {
+      throw new NotFoundException(e);
     });
   }
 
@@ -70,6 +72,8 @@ export class StatsService {
       where: {
         id,
       },
+    }).catch(e => {
+      throw new NotFoundException(e);
     });
   }
 

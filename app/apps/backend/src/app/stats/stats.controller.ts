@@ -1,10 +1,20 @@
-import { Controller, Get, Post, Body, Param, Delete, Query, ParseUUIDPipe, ParseIntPipe } from "@nestjs/common";
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Query,
+  ParseUUIDPipe,
+  ParseIntPipe,
+  DefaultValuePipe,
+} from "@nestjs/common";
 import { StatsService } from "./stats.service";
 import { CreateStatDto } from "./dto";
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
 import { DeviceEntity, StatEntity } from "./entities";
-import { PaginationQueryDto } from "../../shared/pagination-query.dto";
-import { SwaggerDelete, SwaggerGet, SwaggerPost } from "../../shared/decorators";
+import { SwaggerDelete, SwaggerGet, SwaggerPost, SwaggerPagination } from "../../shared/decorators";
 
 @ApiTags("stats")
 @Controller("stats")
@@ -24,22 +34,26 @@ export class StatsController {
     summary: "Получение всей доступной статистики с пагинацией",
   })
   @SwaggerGet()
+  @SwaggerPagination()
   @Get()
   async findAll(
-    @Query() paginationQuery?: PaginationQueryDto,
+    @Query("page", new DefaultValuePipe(1), ParseIntPipe) page: number = 1,
+    @Query("limits", new DefaultValuePipe(10), ParseIntPipe) limit: number = 10,
   ): Promise<StatEntity[]> {
-    return this.statsService.findAll(paginationQuery);
+    return this.statsService.findAll({ page, limit });
   }
 
   @ApiOperation({
     summary: "Получение всех девайсов с пагинацией",
   })
   @SwaggerGet()
+  @SwaggerPagination()
   @Get("devices")
   async findDevices(
-    @Query() paginationQuery?: PaginationQueryDto,
+    @Query("page", new DefaultValuePipe(1), ParseIntPipe) page: number = 1,
+    @Query("limits", new DefaultValuePipe(10), ParseIntPipe) limit: number = 10,
   ): Promise<DeviceEntity[]> {
-    return this.statsService.findDevices(paginationQuery);
+    return this.statsService.findDevices({ page, limit });
   }
 
   @ApiOperation({
@@ -67,7 +81,7 @@ export class StatsController {
   })
   @SwaggerDelete()
   @Delete(":id")
-  async remove(@Param("id") id: string): Promise<void> {
-    await this.statsService.remove(+id);
+  async remove(@Param("id", ParseIntPipe) id: number): Promise<void> {
+    await this.statsService.remove(id);
   }
 }
