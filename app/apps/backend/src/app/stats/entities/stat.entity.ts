@@ -2,8 +2,8 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import { ApiProperty } from "@nestjs/swagger";
 import { HttpStatus, RequestMethod } from "@nestjs/common";
 
-@Entity()
-export class Stat {
+@Entity("Stat")
+export class StatEntity {
   @PrimaryGeneratedColumn()
   readonly id: number;
 
@@ -28,32 +28,26 @@ export class Stat {
   statusCode: HttpStatus;
 
   @ApiProperty({
-    description: "Время начала выполнения запроса, в мс",
+    description: "Дата выполнения запроса",
   })
-  @Column({ type: "number", length: 128, default: -1 })
-  startTime: number;
-
-  @ApiProperty({
-    description: "Время окончания выполнения запроса, в мс",
-  })
-  @Column({ type: "number", length: 128, default: -1 })
-  endTime: number;
+  @Column({ type: "timestamp" })
+  date: Date;
 
   @ApiProperty({
     description: "Время выполнения запроса, в мс",
   })
-  @Column({ type: "number", length: 128, default: -1 })
+  @Column({ type: "numeric", default: -1 })
   duration: number;
 
   @ApiProperty({
     description: "Длина ответа, в мб",
   })
-  @Column({ length: 128 })
+  @Column({ type: "numeric" })
   size: number;
 
   @ApiProperty({
     description: "Название модуля, который вызвал запрос",
   })
-  @Column({ length: 128 })
+  @Column({ type: "varchar", length: 128 })
   locationOfRequest: string;
 }
