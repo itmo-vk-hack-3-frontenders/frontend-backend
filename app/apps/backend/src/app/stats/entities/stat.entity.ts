@@ -1,6 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { ApiProperty } from "@nestjs/swagger";
 import { HttpStatus, RequestMethod } from "@nestjs/common";
+import { DeviceEntity } from "./device.entity";
 
 @Entity("Stat")
 export class StatEntity {
@@ -50,4 +51,7 @@ export class StatEntity {
   })
   @Column({ type: "varchar", length: 128 })
   locationOfRequest: string;
+
+  @ManyToOne(() => DeviceEntity, (device) => device.stats)
+  device: DeviceEntity;
 }

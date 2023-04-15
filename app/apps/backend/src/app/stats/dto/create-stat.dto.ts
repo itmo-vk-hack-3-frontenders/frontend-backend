@@ -2,7 +2,7 @@ import { HttpStatus, RequestMethod } from "@nestjs/common";
 import { ApiProperty } from "@nestjs/swagger";
 import { IsEnum, IsPositive, IsString, IsUrl } from "class-validator";
 
-export class CreateStatDto {
+class StatDto {
   @ApiProperty()
   @IsUrl()
   url: string;
@@ -30,4 +30,34 @@ export class CreateStatDto {
   @ApiProperty()
   @IsString()
   locationOfRequest: string;
+}
+
+class DeviceDto {
+  @ApiProperty()
+  @IsString()
+  buildVersion: string;
+
+  @ApiProperty()
+  @IsString()
+  os: string;
+
+  @ApiProperty()
+  @IsString()
+  deviceId: string;
+
+  @ApiProperty()
+  @IsString()
+  osVersion: string;
+}
+
+export class CreateStatDto {
+  @ApiProperty({
+    type: StatDto,
+  })
+  stat: StatDto;
+
+  @ApiProperty({
+    type: DeviceDto,
+  })
+  device: DeviceDto;
 }

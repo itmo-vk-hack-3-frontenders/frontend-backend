@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryColumn } from "typeorm";
 import { ApiProperty } from "@nestjs/swagger";
+import { StatEntity } from "./stat.entity";
 
 @Entity("Device")
 export class DeviceEntity {
@@ -29,4 +30,9 @@ export class DeviceEntity {
 
   @Column({ type: "varchar", length: 128 })
   osVersion: string;
+
+  @OneToMany(() => StatEntity, (stat) => stat.device, {
+    cascade: true,
+  })
+  stats: StatEntity[];
 }

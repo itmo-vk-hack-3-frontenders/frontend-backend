@@ -1,4 +1,4 @@
-import { ConflictException, Injectable } from "@nestjs/common";
+import { ConflictException, Injectable, InternalServerErrorException } from "@nestjs/common";
 import { CreateStatDto } from "./dto";
 import { InjectRepository } from "@nestjs/typeorm";
 import { DeviceEntity, StatEntity } from "./entities";
@@ -16,12 +16,27 @@ export class StatsService {
   ) {}
 
   async create(createStatDto: CreateStatDto): Promise<StatEntity> {
-    return this.statsRepository.manager.transaction(async () => {
-      const entity = this.statsRepository.create(createStatDto);
-      return this.statsRepository.save(entity).catch(() => {
-        throw new ConflictException();
+    try {
+      await this.deviceRepository.manager.transaction(async () => {
+        const entity = this.deviceRepository.create({
+          ...createStatDto.device,
+          id: createStatDto.device.deviceId,
+        });
+
+        return this.deviceRepository.save(entity).catch(() => {
+          throw new ConflictException();
+        });
       });
-    });
+
+      return this.statsRepository.manager.transaction(async () => {
+        const entity = this.statsRepository.create(createStatDto.stat);
+        return this.statsRepository.save(entity).catch(() => {
+          throw new ConflictException();
+        });
+      });
+    } catch (e) {
+      throw new InternalServerErrorException(e);
+    }
   }
 
   async findAll(paginationQuery: PaginationQueryDto): Promise<StatEntity[]> {

@@ -4,6 +4,7 @@ import { CreateStatDto } from "./dto";
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
 import { DeviceEntity, StatEntity } from "./entities";
 import { PaginationQueryDto } from "../../shared/pagination-query.dto";
+import { SwaggerDelete, SwaggerGet, SwaggerPost } from "../../shared/decorators";
 
 @ApiTags("stats")
 @Controller("stats")
@@ -13,6 +14,7 @@ export class StatsController {
   @ApiOperation({
     summary: "Создание новой статистики",
   })
+  @SwaggerPost()
   @Post()
   async create(@Body() createStatDto: CreateStatDto): Promise<StatEntity> {
     return this.statsService.create(createStatDto);
@@ -21,6 +23,7 @@ export class StatsController {
   @ApiOperation({
     summary: "Получение всей доступной статистики с пагинацией",
   })
+  @SwaggerGet()
   @Get()
   async findAll(
     @Query() paginationQuery?: PaginationQueryDto,
@@ -31,6 +34,7 @@ export class StatsController {
   @ApiOperation({
     summary: "Получение всех девайсов с пагинацией",
   })
+  @SwaggerGet()
   @Get("devices")
   async findDevices(
     @Query() paginationQuery?: PaginationQueryDto,
@@ -41,6 +45,7 @@ export class StatsController {
   @ApiOperation({
     summary: "Получение девайса",
   })
+  @SwaggerGet()
   @Get("devices/:id")
   async findDevice(
     @Param("id", ParseUUIDPipe) id: string,
@@ -51,6 +56,7 @@ export class StatsController {
   @ApiOperation({
     summary: "Получение статистики по идентификатору",
   })
+  @SwaggerGet()
   @Get(":id")
   findOne(@Param("id", ParseIntPipe) id: number): Promise<StatEntity> {
     return this.statsService.findOne(id);
@@ -59,6 +65,7 @@ export class StatsController {
   @ApiOperation({
     summary: "Удаление статистики по идентификатору",
   })
+  @SwaggerDelete()
   @Delete(":id")
   async remove(@Param("id") id: string): Promise<void> {
     await this.statsService.remove(+id);
