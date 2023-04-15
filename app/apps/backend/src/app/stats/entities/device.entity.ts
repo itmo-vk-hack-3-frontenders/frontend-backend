@@ -1,13 +1,13 @@
 import { Column, Entity, PrimaryColumn } from "typeorm";
 import { ApiProperty } from "@nestjs/swagger";
 
-@Entity()
-export class DeviceStatEntity {
+@Entity("Device")
+export class DeviceEntity {
   @ApiProperty({
     description: "Device ID",
   })
-  @PrimaryColumn()
-  readonly id: number;
+  @PrimaryColumn("uuid")
+  readonly id: string;
 
   @ApiProperty({
     description: "Название устройства",

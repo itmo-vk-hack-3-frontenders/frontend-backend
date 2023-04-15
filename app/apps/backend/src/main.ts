@@ -1,7 +1,8 @@
-import { Logger } from "@nestjs/common";
+import { Logger, ValidationPipe } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app/app.module";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
+import { HttpExceptionFilter } from "./shared/http-exception.filter";
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
@@ -10,6 +11,11 @@ async function bootstrap(): Promise<void> {
   app.setGlobalPrefix(globalPrefix);
 
   const port = process.env.BACKEND_PORT || 3000;
+
+  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalFilters(
+    new HttpExceptionFilter(),
+  );
 
   const config = new DocumentBuilder()
     .setTitle("ITMO / VK / OK Hack")
