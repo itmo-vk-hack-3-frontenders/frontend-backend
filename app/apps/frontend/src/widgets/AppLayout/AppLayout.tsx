@@ -1,19 +1,16 @@
-import { FC, ReactNode } from "react";
+import { FC, PropsWithChildren } from "react";
 import { Header } from "../Header";
 import { Footer } from "../Footer";
+import styles from "./AppLayout.module.scss";
 
-interface AppLayoutProps {
-  children: ReactNode
-}
-
-export const AppLayout: FC<AppLayoutProps> = ({ children }) => {
+export const AppLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <>
-      <Header />
-      <main>
+      <Header className={styles.app} />
+      <main className={styles.app}>
         {children}
       </main>
-      <Footer />
+      <Footer className={styles.app} />
     </>
   );
 };

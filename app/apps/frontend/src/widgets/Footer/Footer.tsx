@@ -1,7 +1,12 @@
 import { FC } from "react";
 
-export const Footer: FC = () => {
+interface FooterProps {
+  className?: string
+}
+
+
+export const Footer: FC<FooterProps> = ({ className }) => {
   return (
-    <footer>footer</footer>
+    <footer className={className}>footer</footer>
   );
 };
