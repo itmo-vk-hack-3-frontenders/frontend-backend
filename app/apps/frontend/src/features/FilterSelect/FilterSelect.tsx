@@ -16,17 +16,21 @@ export const FilterSelect: FC<FilterSelectProps> = ({ keyParam, options, placeho
     option.label.toLowerCase().includes(value.toLowerCase()) ||
     option.description.toLowerCase().includes(value.toLowerCase());
 
+  const onChange = (evt) => {
+    setQueryParam(keyParam, evt.target.value)}
+
   return (
     <CustomSelect
       value={value}
       placeholder={placeholder}
       searchable
       renderOption={({ option, ...restProps }) => (
-        <CustomSelectOption {...restProps} description={option.label} />
+        <CustomSelectOption {...restProps} disabled={false} />
       )}
       filterFn={customSearchFilter}
       options={options}
-      onChange={(evt) => setQueryParam(keyParam, evt.target.value)}
+      // onChange={onChange}
+      onSelect={onChange}
     />
   );
 };

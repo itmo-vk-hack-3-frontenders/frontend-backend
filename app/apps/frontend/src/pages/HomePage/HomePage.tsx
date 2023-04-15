@@ -27,12 +27,12 @@ const options = {
 
 const list = [
   {
-    label: "fsdfds",
-    value: "dsfsdf",
+    label: "34543",
+    value: "3",
   },
   {
-    label: "fs34s",
-    value: "dsdsfdfsdf",
+    label: "5.54.35",
+    value: "4",
   },
 ];
 
