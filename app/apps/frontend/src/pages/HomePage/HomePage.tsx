@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { LineChart } from "../../shared";
-import { FilterByDuration, FilterByLocation, FilterDatetime, FilterSelect } from "../../features";
+import { FilterByDuration, FilterByLocation, FilterByOS, FilterDatetime } from "../../features";
 import styles from "./HomePage.module.scss";
 import { AppLayout } from "../../shared/uikit/AppLayout/AppLayout";
 
@@ -25,23 +25,13 @@ const options = {
   },
 };
 
-const list = [
-  {
-    label: "34543",
-    value: "3",
-  },
-  {
-    label: "5.54.35",
-    value: "4",
-  },
-];
 
 export const HomePage: FC = () => {
   return (
     <AppLayout>
       <section className={styles.homePage__filters}>
         <FilterDatetime />
-        <FilterSelect keyParam="filter-os" options={list} placeholder="Версия os" />
+        <FilterByOS />
         <FilterByDuration />
         <FilterByLocation />
       </section>
