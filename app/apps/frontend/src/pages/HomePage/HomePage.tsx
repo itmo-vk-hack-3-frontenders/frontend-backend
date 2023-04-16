@@ -6,7 +6,7 @@ import { $stats, $totalPages, fetchDevicesFx, fetchStatsFx } from "../../entitie
 import { StatCard } from "../../entities";
 import { useStore } from "effector-react";
 import { Group, Pagination, ScreenSpinner } from "@vkontakte/vkui";
-import { VictoryArea, VictoryAxis, VictoryChart, VictoryGroup, VictoryTheme } from "victory";
+import { VictoryArea, VictoryChart, VictoryGroup, VictoryTheme } from "victory";
 
 export const HomePage: FC = () => {
   const stats = useStore($stats);
