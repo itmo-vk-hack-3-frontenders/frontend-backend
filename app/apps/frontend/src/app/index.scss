@@ -3,7 +3,56 @@
   padding: 0;
   box-sizing: border-box;
 }
-  
+
+@font-face {
+  font-style: normal;
+  font-weight: 200;
+  font-family: ALS-Gorizont;
+  font-display: swap;
+  src: url('https://cdn.itmo.ru/fonts/ALS-Gorizont/Thin/ALSGorizont-Thin.otf') format('opentype');
+}
+
+@font-face {
+  font-style: normal;
+  font-weight: 300;
+  font-family: ALS-Gorizont;
+  font-display: swap;
+  src: url('https://cdn.itmo.ru/fonts/ALS-Gorizont/Light/ALSGorizont-Light.otf') format('opentype');
+}
+
+@font-face {
+  font-style: normal;
+  font-weight: normal;
+  font-family: ALS-Gorizont;
+  font-display: swap;
+  src: url('https://cdn.itmo.ru/fonts/ALS-Gorizont/Regular/ALSGorizont-Regular.otf') format('opentype');
+}
+
+@font-face {
+  font-style: normal;
+  font-weight: 500;
+  font-family: ALS-Gorizont;
+  font-display: swap;
+  src: url('https://cdn.itmo.ru/fonts/ALS-Gorizont/Medium/ALSGorizont-Medium.otf') format('opentype');
+}
+
+@font-face {
+  font-style: normal;
+  font-weight: 700;
+  font-family: ALS-Gorizont;
+  font-display: swap;
+  src: url('https://cdn.itmo.ru/fonts/ALS-Gorizont/Bold/ALSGorizont-Bold.otf') format('opentype');
+}
+
+@font-face {
+  font-style: normal;
+  font-weight: 800;
+  font-family: ALS-Gorizont;
+  font-display: swap;
+  src: url('https://cdn.itmo.ru/fonts/ALS-Gorizont/ExtraBold/ALSGorizont-ExtraBold.otf') format('opentype');
+}
+
+
 h1,
 h2,
 h3,
@@ -11,6 +60,11 @@ h4,
 h5,
 h6 {
   font-family: ALS-Gorizont, sans-serif;
+  color: var(--vkui--color_text_primary);
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
 }
 
 body {
@@ -22,6 +76,11 @@ body {
 
 a {
   text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--vkui--color_accent_blue);
+  }
 }
 
 article,

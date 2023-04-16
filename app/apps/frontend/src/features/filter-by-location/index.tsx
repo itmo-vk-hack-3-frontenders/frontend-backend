@@ -1,7 +1,7 @@
 import { FC } from "react";
-import { CustomSelectOption, Headline, Select } from "@vkontakte/vkui";
+import { CustomSelectOption, Select } from "@vkontakte/vkui";
 import { useQueryParams } from "../../shared";
-import { applyLocationFilter } from "../../entities/stat/model/store";
+import { applyLocationFilter } from "../../entities";
 
 const FILTER_KEY = "by-duration";
 
@@ -16,9 +16,9 @@ export const FilterByLocation: FC = () => {
 
   return (
     <div>
-      <Headline>
+      <h5>
         Место вызова
-      </Headline>
+      </h5>
       <Select
         options={[]}
         placeholder="Не выбран"

@@ -1,7 +1,7 @@
 import { ChangeEvent, FC } from "react";
-import { CustomSelectOption, Headline, Select } from "@vkontakte/vkui";
+import { CustomSelectOption, Select } from "@vkontakte/vkui";
 import { useQueryParams } from "../../shared";
-import { applyOsFilter } from "../../entities/stat/model/store";
+import { applyOsFilter } from "../../entities";
 
 const FILTER_KEY = "by-os";
 
@@ -27,9 +27,9 @@ export const FilterByOS: FC = () => {
 
   return (
     <div>
-      <Headline>
+      <h5>
         Длина запроса
-      </Headline>
+      </h5>
       <Select
         options={list}
         placeholder={"OS"}

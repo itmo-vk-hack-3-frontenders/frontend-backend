@@ -1,10 +1,12 @@
-import { FC, useEffect } from "react";
+import { FC, Suspense, useEffect, useState } from "react";
 import { ApiService, LineChart } from "../../shared";
 import { FilterByDuration, FilterByLocation, FilterByOS, FilterDatetime } from "../../features";
 import styles from "./HomePage.module.scss";
 import { AppLayout } from "../../shared/uikit/AppLayout/AppLayout";
-import { addStats } from "../../entities/stat/model/store";
-import { addDevices } from "../../entities";
+import { $stats, addStats, fetchStatsFx } from "../../entities/stat/model/store";
+import { addDevices, StatCard } from "../../entities";
+import { useStore, useUnit } from "effector-react";
+import { Group, Headline, Pagination, ScreenSpinner } from "@vkontakte/vkui";
 
 const data = {
   labels: ["January", "February", "March", "April", "May", "June", "July"],
@@ -29,18 +31,12 @@ const options = {
 
 
 export const HomePage: FC = () => {
-
-  const init = async () => {
-    const stats = await ApiService.fetchStat();
-    addStats(stats);
-    const devices = await ApiService.fetchDevices();
-    addDevices(devices);
-  };
+  const stats = useStore($stats);
+  const loading = useStore(fetchStatsFx.pending);
 
   useEffect(() => {
-    init();
+    fetchStatsFx();
   }, []);
-
 
   return (
     <AppLayout>
@@ -50,7 +46,30 @@ export const HomePage: FC = () => {
         <FilterByDuration />
         <FilterByLocation />
       </section>
-      <LineChart data={data} options={options} />
+      <Group header={(
+        <h4>
+          Список доступных статистик
+        </h4>
+      )}>
+        {
+          loading && <ScreenSpinner state="loading" style={{
+            zIndex: 100,
+          }} />
+        }
+        {
+          fetchStatsFx.doneData.length > 0 && <div className={styles.homePage__card_wrapper}>
+            {
+              stats.map((stat, index) => {
+                return (
+                  <StatCard data={stat} key={index} />
+                );
+              })
+            }
+          </div>
+        }
+        <Pagination className={styles.homePage__pagination} />
+      </Group>
+      {/*<LineChart data={data} options={options} />*/}
     </AppLayout>
   );
 };

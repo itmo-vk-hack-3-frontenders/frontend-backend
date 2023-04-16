@@ -1,7 +1,7 @@
 import { FC } from "react";
-import { Headline, Input, Slider } from "@vkontakte/vkui";
+import { Input, Slider } from "@vkontakte/vkui";
 import { useQueryParams } from "../../shared";
-import { applyDurationFilter } from "../../entities/stat/model/store";
+import { applyDurationFilter } from "../../entities";
 
 const FILTER_KEY = "by-duration";
 
@@ -16,9 +16,9 @@ export const FilterByDuration: FC = () => {
 
   return (
     <div>
-      <Headline>
+      <h5>
         Фильтр по длительности запроса
-      </Headline>
+      </h5>
       <Slider max={20} min={0} value={value} onChange={onChange} />
       <Input readOnly value={value} />
     </div>

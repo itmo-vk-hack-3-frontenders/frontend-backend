@@ -1,8 +1,8 @@
-import { DateInput, Headline } from "@vkontakte/vkui";
+import { DateInput } from "@vkontakte/vkui";
 import { useQueryParams } from "../../shared";
 import styles from "./FilterDatetime.module.scss";
 import { FC } from "react";
-import { applyDateFilter } from "../../entities/stat/model/store";
+import { applyDateFilter } from "../../entities";
 
 export const FilterDatetime: FC = () => {
   const { getQueryParam, setQueryParam } = useQueryParams();
@@ -21,9 +21,9 @@ export const FilterDatetime: FC = () => {
 
   return (
     <div className={styles.filter}>
-      <Headline level={"2"}>
+      <h5>
         Выбор времени
-      </Headline>
+      </h5>
       <div className={styles.filter__pickers}>
         <DateInput value={start ? new Date(start * 1000) : new Date()}
           onChange={onChangeStart} />
