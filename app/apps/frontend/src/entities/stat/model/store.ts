@@ -17,8 +17,11 @@ export const fetchStatsFx = createEffect(async () => {
   return stats;
 });
 
+export const $totalPages = createStore<number>(1)
+  .on(fetchStatsFx.doneData, (_, newStats) => Math.ceil(newStats.total / 10));
+
 export const $stats = createStore<Stat[]>([])
-  .on(fetchStatsFx.doneData, (_, newStats) =>newStats)
+  .on(fetchStatsFx.doneData, (_, newStats) => newStats.data)
   .on(applyDurationFilter, (state, length) => {
     return [...state].filter(i => i.duration >= length);
   })

@@ -10,13 +10,9 @@ const fetchDevices = async (): Promise<Device[]> => {
   }
 };
 
-const fetchStat = async (): Promise<Stat[]> => {
-  try {
-    const { data } = await axios.get("/stats");
-    return data.data;
-  } catch (error) {
-    return [];
-  }
+const fetchStat = async (): Promise<{ data: Stat[], total: number }> => {
+  const { data } = await axios.get("/stats");
+  return data;
 };
 
 export const ApiService = {

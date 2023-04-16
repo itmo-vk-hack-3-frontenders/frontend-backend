@@ -23,6 +23,7 @@ export const StatCard: FC<StatCardProps> = memo((props) => {
         </a>
         <section className={styles.card__request}>
           <span className={styles.card__method}>{data.method}</span>
+          <span className={styles.card__status}>Статус - {data.statusCode}</span>
         </section>
         <span className={styles.card__meta}>
           <span>

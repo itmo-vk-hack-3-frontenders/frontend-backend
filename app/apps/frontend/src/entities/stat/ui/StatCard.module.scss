@@ -13,6 +13,8 @@
 
   &__request {
     margin-bottom: 12px;
+    display: flex;
+    gap: 8px;
   }
 
   &__meta {
@@ -37,7 +39,7 @@
     }
   }
 
-  &__method {
+  &__method, &__status {
     display: block;
     width: fit-content;
     margin-top: 4px;
@@ -46,6 +48,14 @@
     font-size: .8rem;
     padding: 1px 4px;
     border-radius: 4px;
+  }
+
+  &__method {
+    color: var(--vkui--color_accent_blue);
+    background: rgba(#3f8ae0, 20%);
+  }
+
+  &__status {
     color: var(--vkui--color_accent_green);
     background: rgba(#4bb34b, 20%);
   }

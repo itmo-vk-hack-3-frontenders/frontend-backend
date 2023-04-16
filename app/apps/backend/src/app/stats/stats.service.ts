@@ -41,6 +41,9 @@ export class StatsService {
     const [data, total] = await this.statsRepository.findAndCount({
       skip: (page - 1) * limit,
       take: limit,
+      order: {
+        date: "DESC",
+      },
       relations: {
         device: true,
       },

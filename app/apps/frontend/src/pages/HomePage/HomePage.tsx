@@ -3,11 +3,12 @@ import { LineChart, Stat } from "../../shared";
 import { FilterByDuration, FilterByLocation, FilterByOS, FilterDatetime } from "../../features";
 import styles from "./HomePage.module.scss";
 import { AppLayout } from "../../shared";
-import { $stats, fetchStatsFx } from "../../entities";
+import { $stats, $totalPages, fetchStatsFx } from "../../entities";
 import { StatCard } from "../../entities";
 import { useStore } from "effector-react";
 import { Group, Pagination, ScreenSpinner } from "@vkontakte/vkui";
 import { ChartData } from "chart.js/auto";
+import { VictoryArea, VictoryAxis, VictoryChart, VictoryTheme } from "victory";
 
 const options = {
   scales: {
@@ -33,6 +34,7 @@ const chartDirectionSelector = (stats: Stat[]): ChartData => {
 
 export const HomePage: FC = () => {
   const stats = useStore($stats);
+  const pages = useStore($totalPages);
   const loading = useStore(fetchStatsFx.pending);
   const isReady = stats.length > 0;
 
@@ -69,9 +71,28 @@ export const HomePage: FC = () => {
             }
           </div>
         }
-        <Pagination className={styles.homePage__pagination} />
+        <Pagination className={styles.homePage__pagination} totalPages={pages} />
       </Group>
-      <LineChart data={chartDirectionSelector(stats)} options={options} />
+      {/*<LineChart data={chartDirectionSelector(stats)} options={options} />*/}
+      <Group header={(
+        <h4>
+        Статистика по объему трафика
+        </h4>
+      )}>
+        <VictoryChart
+          height={400}
+          theme={VictoryTheme.material}
+          width={400}>
+          <VictoryArea
+            label={"Заголовок"}
+            data={stats.map(stat => {
+              return {
+                x: stat.date,
+                y: stat.size,
+              };
+            })} />
+        </VictoryChart>
+      </Group>
     </AppLayout>
   );
 };
