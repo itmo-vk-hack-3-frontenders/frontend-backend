@@ -68,7 +68,7 @@ export const HomePage: FC = () => {
               <VictoryArea
                 data={stats.map(stat => {
                   return {
-                    x: new Date(+stat.date).toLocaleString("").replace(" ", "\n"),
+                    x: new Date(+stat.date).toLocaleString().replace(" ", "\n"),
                     y: Math.abs(stat.size),
                   };
                 })}
