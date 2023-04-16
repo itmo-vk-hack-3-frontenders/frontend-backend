@@ -34,6 +34,7 @@ const chartDirectionSelector = (stats: Stat[]): ChartData => {
 export const HomePage: FC = () => {
   const stats = useStore($stats);
   const loading = useStore(fetchStatsFx.pending);
+  const isReady = stats.length > 0;
 
   useEffect(() => {
     fetchStatsFx();
@@ -58,7 +59,7 @@ export const HomePage: FC = () => {
           }} />
         }
         {
-          fetchStatsFx.doneData.length > 0 && <div className={styles.homePage__card_wrapper}>
+          isReady && <div className={styles.homePage__card_wrapper}>
             {
               stats.map((stat, index) => {
                 return (

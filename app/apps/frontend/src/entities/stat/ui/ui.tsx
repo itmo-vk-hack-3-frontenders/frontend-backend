@@ -1,5 +1,5 @@
 import { FC, memo } from "react";
-import { Stat } from "../../../shared/api/services/types";
+import { Stat } from "../../../shared";
 import { Card, CardGrid } from "@vkontakte/vkui";
 import styles from "./StatCard.module.scss";
 import clsx from "clsx";
@@ -21,23 +21,31 @@ export const StatCard: FC<StatCardProps> = memo((props) => {
         <a href={data.url} rel="noreferrer" target={"_blank"}>
           <h3>{data.url}</h3>
         </a>
-        <section>
+        <section className={styles.card__request}>
           <span className={styles.card__method}>{data.method}</span>
         </section>
         <span className={styles.card__meta}>
-          <Icon16ClockOutline />
+          <span>
+            <Icon16ClockOutline />
+          </span>
           {new Date(+data.date).toLocaleString()}
         </span>
         <span className={styles.card__meta}>
-          <Icon20BombOutline />
+          <span>
+            <Icon20BombOutline />
+          </span>
           {`Запрос занял ${Math.floor(data.duration / 1000)} с.`}
         </span>
         <span className={styles.card__meta}>
-          <Icon28SmartphoneOutline />
-          {data.device?.name}
+          <span>
+            <Icon28SmartphoneOutline />
+          </span>
+          {`${data.device?.name}, ${data.device?.osVersion}`}
         </span>
         <span className={styles.card__meta}>
-          <Icon24Globe />
+          <span>
+            <Icon24Globe />
+          </span>
           {`${Math.floor(Math.abs(data.size) * 8 / 1e6).toFixed(2)} мб`}
         </span>
       </Card>

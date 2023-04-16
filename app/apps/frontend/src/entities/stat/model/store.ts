@@ -1,8 +1,7 @@
 import { createEffect, createEvent, createStore } from "effector";
-import { Stat } from "../../../shared/api/services/types";
+import { Stat } from "../../../shared";
 import { ApiService } from "../../../shared";
 
-export const addStats = createEvent<Stat[]>("addStats");
 export const resetStats = createEvent<void>("resetStats");
 export const applyDurationFilter = createEvent<number>();
 export const applyLocationFilter = createEvent<string>();
@@ -13,18 +12,13 @@ export const applyDateFilter = createEvent<{
   end: Date,
 }>();
 
-const fetchDevicesFx = createEffect(async () => {
-  const devices = await ApiService.fetchDevices();
-  return devices;
-});
-
 export const fetchStatsFx = createEffect(async () => {
   const stats = await ApiService.fetchStat();
   return stats;
 });
 
 export const $stats = createStore<Stat[]>([])
-  .on(fetchStatsFx.doneData, (_, newStats) => [...newStats])
+  .on(fetchStatsFx.doneData, (_, newStats) =>newStats)
   .on(applyDurationFilter, (state, length) => {
     return [...state].filter(i => i.duration >= length);
   })

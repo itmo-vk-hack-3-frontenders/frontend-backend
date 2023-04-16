@@ -13,7 +13,7 @@ const fetchDevices = async (): Promise<Device[]> => {
 const fetchStat = async (): Promise<Stat[]> => {
   try {
     const { data } = await axios.get("/stats");
-    return data;
+    return data.data;
   } catch (error) {
     return [];
   }

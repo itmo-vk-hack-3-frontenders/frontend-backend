@@ -11,12 +11,21 @@
     }
   }
 
+  &__request {
+    margin-bottom: 12px;
+  }
+
   &__meta {
     display: flex;
     gap: 8px;
     align-items: center;
     color: var(--vkui--color_accent_gray);
     margin: 4px 0;
+
+    span:first-child {
+      flex: 0 0 5%;
+      max-width: 32px;
+    }
 
     svg {
       width: 20px !important;

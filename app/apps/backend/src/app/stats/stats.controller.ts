@@ -38,7 +38,7 @@ export class StatsController {
   async findAll(
     @Query("page", new DefaultValuePipe(1), ParseIntPipe) page: number = 1,
     @Query("limits", new DefaultValuePipe(10), ParseIntPipe) limit: number = 10,
-  ): Promise<StatEntity[]> {
+  ): Promise<{ data: StatEntity[], total: number}> {
     return this.statsService.findAll({ page, limit });
   }
 
