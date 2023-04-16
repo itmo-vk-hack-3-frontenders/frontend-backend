@@ -1,6 +1,7 @@
 import { ChangeEvent, FC } from "react";
 import { CustomSelectOption, Headline, Select } from "@vkontakte/vkui";
 import { useQueryParams } from "../../shared";
+import { applyOsFilter } from "../../entities/stat/model/store";
 
 const FILTER_KEY = "by-os";
 
@@ -19,8 +20,9 @@ export const FilterByOS: FC = () => {
   const { getQueryParam, setQueryParam } = useQueryParams();
   const value = getQueryParam(FILTER_KEY);
 
-  const onCustomSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    setQueryParam(FILTER_KEY, event.target.value);
+  const onChange = (evt: ChangeEvent<HTMLSelectElement>) => {
+    setQueryParam(FILTER_KEY, evt.target.value);
+    applyOsFilter(evt.target.value);
   };
 
   return (
@@ -36,7 +38,7 @@ export const FilterByOS: FC = () => {
         renderOption={({ ...restProps }) => (
           <CustomSelectOption {...restProps} />
         )}
-        onChange={onCustomSelectChange}
+        onChange={onChange}
       />
     </div>
   );

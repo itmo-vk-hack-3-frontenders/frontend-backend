@@ -1,8 +1,10 @@
-import { FC } from "react";
-import { LineChart } from "../../shared";
+import { FC, useEffect } from "react";
+import { ApiService, LineChart } from "../../shared";
 import { FilterByDuration, FilterByLocation, FilterByOS, FilterDatetime } from "../../features";
 import styles from "./HomePage.module.scss";
 import { AppLayout } from "../../shared/uikit/AppLayout/AppLayout";
+import { addStats } from "../../entities/stat/model/store";
+import { addDevices } from "../../entities";
 
 const data = {
   labels: ["January", "February", "March", "April", "May", "June", "July"],
@@ -27,6 +29,19 @@ const options = {
 
 
 export const HomePage: FC = () => {
+
+  const init = async () => {
+    const stats = await ApiService.fetchStat();
+    addStats(stats);
+    const devices = await ApiService.fetchDevices();
+    addDevices(devices);
+  };
+
+  useEffect(() => {
+    init();
+  }, []);
+
+
   return (
     <AppLayout>
       <section className={styles.homePage__filters}>

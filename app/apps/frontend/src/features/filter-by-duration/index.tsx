@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { Headline, Input, Slider } from "@vkontakte/vkui";
 import { useQueryParams } from "../../shared";
+import { applyDurationFilter } from "../../entities/stat/model/store";
 
 const FILTER_KEY = "by-duration";
 
@@ -10,6 +11,7 @@ export const FilterByDuration: FC = () => {
 
   const onChange = (value: number) => {
     setQueryParam(FILTER_KEY, String(value));
+    applyDurationFilter(value);
   };
 
   return (
