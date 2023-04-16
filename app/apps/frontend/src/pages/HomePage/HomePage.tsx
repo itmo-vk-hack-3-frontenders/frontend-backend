@@ -1,25 +1,13 @@
-import { FC, Suspense, useEffect, useState } from "react";
-import { ApiService, LineChart } from "../../shared";
+import { FC, useEffect } from "react";
+import { LineChart, Stat } from "../../shared";
 import { FilterByDuration, FilterByLocation, FilterByOS, FilterDatetime } from "../../features";
 import styles from "./HomePage.module.scss";
-import { AppLayout } from "../../shared/uikit/AppLayout/AppLayout";
-import { $stats, addStats, fetchStatsFx } from "../../entities/stat/model/store";
-import { addDevices, StatCard } from "../../entities";
-import { useStore, useUnit } from "effector-react";
-import { Group, Headline, Pagination, ScreenSpinner } from "@vkontakte/vkui";
-
-const data = {
-  labels: ["January", "February", "March", "April", "May", "June", "July"],
-  datasets: [
-    {
-      label: "My First Dataset",
-      data: [65, 59, 80, 81, 56, 55, 40],
-      fill: false,
-      borderColor: "rgb(75, 192, 192)",
-      tension: 0.1,
-    },
-  ],
-};
+import { AppLayout } from "../../shared";
+import { $stats, fetchStatsFx } from "../../entities";
+import { StatCard } from "../../entities";
+import { useStore } from "effector-react";
+import { Group, Pagination, ScreenSpinner } from "@vkontakte/vkui";
+import { ChartData } from "chart.js/auto";
 
 const options = {
   scales: {
@@ -82,7 +70,7 @@ export const HomePage: FC = () => {
         }
         <Pagination className={styles.homePage__pagination} />
       </Group>
-      <LineChart data={chartDirectionSelector(statsState)} options={options} />
+      <LineChart data={chartDirectionSelector(stats)} options={options} />
     </AppLayout>
   );
 };
