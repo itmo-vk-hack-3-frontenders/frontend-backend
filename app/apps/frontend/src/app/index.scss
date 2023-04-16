@@ -178,6 +178,11 @@ input[type='number']::-webkit-outer-spin-button {
   height: auto;
 }
 
+tspan {
+  transform: rotate(45deg) !important;
+  font-size: 8px !important;
+}
+
 input[type='search']::-webkit-search-cancel-button,
 input[type='search']::-webkit-search-decoration {
   appearance: none;

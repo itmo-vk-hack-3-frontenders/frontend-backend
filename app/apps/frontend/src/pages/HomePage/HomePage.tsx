@@ -6,7 +6,7 @@ import { $stats, $totalPages, fetchDevicesFx, fetchStatsFx } from "../../entitie
 import { StatCard } from "../../entities";
 import { useStore } from "effector-react";
 import { Group, Pagination, ScreenSpinner } from "@vkontakte/vkui";
-import { VictoryArea, VictoryChart, VictoryTheme } from "victory";
+import { VictoryArea, VictoryAxis, VictoryChart, VictoryGroup, VictoryTheme } from "victory";
 
 export const HomePage: FC = () => {
   const stats = useStore($stats);
@@ -55,19 +55,30 @@ export const HomePage: FC = () => {
           Статистика по объему трафика
         </h4>
       )}>
-        <VictoryChart
-          height={400}
-          theme={VictoryTheme.material}
-          width={400}>
-          <VictoryArea
-            label={"Заголовок"}
-            data={stats.map(stat => {
-              return {
-                x: stat.date,
-                y: stat.size,
-              };
-            })} />
-        </VictoryChart>
+        <div className={styles.homePage__plot}>
+          <VictoryChart
+            height={400}
+            theme={VictoryTheme.material}
+            width={600}>
+            <VictoryGroup
+              style={{
+                data: { strokeWidth: 3, fillOpacity: 0.4 },
+              }}
+            >
+              <VictoryArea
+                data={stats.map(stat => {
+                  return {
+                    x: new Date(+stat.date).toLocaleString("").replace(" ", "\n"),
+                    y: Math.abs(stat.size),
+                  };
+                })}
+                style={{
+                  data: { fill: "cyan", stroke: "cyan" },
+                }}
+              />
+            </VictoryGroup>
+          </VictoryChart>
+        </div>
       </Group>
     </AppLayout>
   );
