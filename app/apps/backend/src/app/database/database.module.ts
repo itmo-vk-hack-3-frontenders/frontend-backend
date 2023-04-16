@@ -12,7 +12,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
       database: "database_n79i",
       ssl: true,
       autoLoadEntities: true,
-      synchronize: process.env.NODE_ENV === "development",
+      synchronize: true,
       logging: true,
     }),
   ],

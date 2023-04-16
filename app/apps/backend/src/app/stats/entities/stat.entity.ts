@@ -15,11 +15,10 @@ export class StatEntity {
   url: string;
 
   @ApiProperty({
-    description: "Метод запрос",
-    type: RequestMethod,
+    description: "Метод запроса",
   })
-  @Column({ type: "enum", enum: RequestMethod })
-  method: RequestMethod;
+  @Column({ type: "varchar", length: 16 })
+  method: string;
 
   @ApiProperty({
     description: "Полученный статус-код запроса",
@@ -49,7 +48,7 @@ export class StatEntity {
   @ApiProperty({
     description: "Название модуля, который вызвал запрос",
   })
-  @Column({ type: "varchar", length: 128 })
+  @Column({ type: "varchar", length: 128, nullable: true })
   locationOfRequest: string;
 
   @ManyToOne(() => DeviceEntity, (device) => device.stats)
