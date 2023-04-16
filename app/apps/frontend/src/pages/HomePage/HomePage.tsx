@@ -72,7 +72,7 @@ export const HomePage: FC = () => {
             }
           </div>
         }
-        <Pagination className={styles.homePage__pagination} />
+        <Pagination className={styles.homePage__pagination} totalPages={pages} />
       </Group>
       <Group header={(
         <h4>
