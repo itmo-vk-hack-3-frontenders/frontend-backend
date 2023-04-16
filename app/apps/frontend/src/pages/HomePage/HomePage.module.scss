@@ -1,0 +1,8 @@
+.homePage {
+  &__filters {
+    display: grid;
+    gap: 36px;
+    grid-template-columns: 1fr 1fr;
+    margin: 24px 0;
+  }
+}

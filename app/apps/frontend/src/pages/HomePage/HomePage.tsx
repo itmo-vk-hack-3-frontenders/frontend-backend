@@ -1,8 +1,8 @@
 import { FC } from "react";
-import { AppLayout } from "../../widgets";
-import { LineChart } from "../../shared/uikit/LineChart";
-import { FilterDatetime, FilterSelect } from "../../features";
-
+import { LineChart } from "../../shared";
+import { FilterByDuration, FilterByLocation, FilterDatetime, FilterSelect } from "../../features";
+import styles from "./HomePage.module.scss";
+import { AppLayout } from "../../shared/uikit/AppLayout/AppLayout";
 
 const data = {
   labels: ["January", "February", "March", "April", "May", "June", "July"],
@@ -39,8 +39,12 @@ const list = [
 export const HomePage: FC = () => {
   return (
     <AppLayout>
-      <FilterDatetime />
-      <FilterSelect keyParam="filter-os" options={list} placeholder="Версия os" />
+      <section className={styles.homePage__filters}>
+        <FilterDatetime />
+        <FilterSelect keyParam="filter-os" options={list} placeholder="Версия os" />
+        <FilterByDuration />
+        <FilterByLocation />
+      </section>
       <LineChart data={data} options={options} />
     </AppLayout>
   );

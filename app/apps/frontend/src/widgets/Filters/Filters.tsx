@@ -1,5 +1,5 @@
 import { FC } from "react";
-// import { FilterSelect } from "../../features";
+// import { filter-by-os } from "../../features";
 
 interface FiltersProps {
 
@@ -8,7 +8,7 @@ interface FiltersProps {
 export const Filters = (): FC<FiltersProps> => {
   return (
     <div>
-      {/* <FilterSelect /> */}
+      {/* <filter-by-os /> */}
     </div>
   );
-}
+};
