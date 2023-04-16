@@ -3,7 +3,7 @@ import { LineChart, Stat } from "../../shared";
 import { FilterByDuration, FilterByLocation, FilterByOS, FilterDatetime } from "../../features";
 import styles from "./HomePage.module.scss";
 import { AppLayout } from "../../shared";
-import { $stats, fetchStatsFx } from "../../entities";
+import { $stats, fetchDevicesFx, fetchStatsFx } from "../../entities";
 import { StatCard } from "../../entities";
 import { useStore } from "effector-react";
 import { Group, Pagination, ScreenSpinner } from "@vkontakte/vkui";
@@ -38,6 +38,7 @@ export const HomePage: FC = () => {
 
   useEffect(() => {
     fetchStatsFx();
+    fetchDevicesFx();
   }, []);
 
   return (
