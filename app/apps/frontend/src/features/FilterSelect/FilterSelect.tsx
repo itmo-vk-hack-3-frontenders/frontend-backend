@@ -1,10 +1,10 @@
 import { FC } from "react";
-import { CustomSelect, CustomSelectOption, CustomSelectOptionInterface } from "@vkontakte/vkui";
-import { useQueryParams } from "../../shared";
+import { CustomSelect, CustomSelectOption } from "@vkontakte/vkui";
+import { useQueryParams, MapItem } from "../../shared";
 
 interface FilterSelectProps {
   keyParam: string
-  options: CustomSelectOptionInterface[];
+  options: MapItem[];
   placeholder?: string;
 }
 
@@ -12,25 +12,24 @@ export const FilterSelect: FC<FilterSelectProps> = ({ keyParam, options, placeho
   const { getQueryParam, setQueryParam } = useQueryParams();
   const value = getQueryParam(keyParam);
 
-  const customSearchFilter = (value: string, option: CustomSelectOptionInterface): boolean =>
-    option.label.toLowerCase().includes(value.toLowerCase()) ||
-    option.description.toLowerCase().includes(value.toLowerCase());
+  const customSearchFilter = (value: string, option: MapItem): boolean =>{
+    return option.label.toLowerCase().includes(value.toLowerCase());
+  };
 
   const onChange = (evt) => {
     setQueryParam(keyParam, evt.target.value)}
 
   return (
     <CustomSelect
+      renderOption={({ ...restProps }) => (
+        <CustomSelectOption {...restProps} />
+      )}
       value={value}
       placeholder={placeholder}
-      searchable
-      renderOption={({ option, ...restProps }) => (
-        <CustomSelectOption {...restProps} disabled={false} />
-      )}
       filterFn={customSearchFilter}
       options={options}
-      // onChange={onChange}
-      onSelect={onChange}
+      searchable={true}
+      onChange={onChange}
     />
   );
 };

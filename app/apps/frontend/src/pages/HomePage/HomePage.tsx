@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { AppLayout } from "../../widgets";
 import { LineChart } from "../../shared/uikit/LineChart";
-import { FilterSelect } from "../../features";
+import { FilterDatetime, FilterSelect } from "../../features";
 
 
 const data = {
@@ -39,6 +39,7 @@ const list = [
 export const HomePage: FC = () => {
   return (
     <AppLayout>
+      <FilterDatetime />
       <FilterSelect keyParam="filter-os" options={list} placeholder="Версия os" />
       <LineChart data={data} options={options} />
     </AppLayout>
