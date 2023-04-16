@@ -7,14 +7,14 @@ export class DeviceEntity {
   @ApiProperty({
     description: "Device ID",
   })
-  @PrimaryColumn("uuid")
+  @PrimaryColumn()
   readonly id: string;
 
   @ApiProperty({
     description: "Название устройства",
   })
   @Column({ type: "varchar", length: 128 })
-  device: string;
+  name: string;
 
   @ApiProperty({
     description: "Название ОС",

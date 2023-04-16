@@ -1,4 +1,4 @@
-import { ConflictException, Injectable, InternalServerErrorException, NotFoundException } from "@nestjs/common";
+import { Injectable, InternalServerErrorException, NotFoundException } from "@nestjs/common";
 import { CreateStatDto } from "./dto";
 import { InjectRepository } from "@nestjs/typeorm";
 import { DeviceEntity, StatEntity } from "./entities";
@@ -17,38 +17,42 @@ export class StatsService {
 
   async create(createStatDto: CreateStatDto): Promise<StatEntity> {
     try {
-      const device = await this.deviceRepository.manager.transaction(async () => {
-        const entity = this.deviceRepository.create({
-          ...createStatDto.device,
-          id: createStatDto.device.deviceId,
-        });
-
-        return this.deviceRepository.save(entity).catch(() => {
-          throw new ConflictException();
-        });
+      const device = await this.deviceRepository.create({
+        ...createStatDto.device,
+        stats: [],
       });
 
-      return this.statsRepository.manager.transaction(async () => {
-        const entity = this.statsRepository.create({
-          ...createStatDto.stat,
-          device,
-        });
-        return this.statsRepository.save(entity).catch(() => {
-          throw new ConflictException();
-        });
+      const entity = this.statsRepository.create(createStatDto.stat);
+
+      device.stats = [entity];
+      await this.deviceRepository.save(device);
+
+      return this.statsRepository.save(entity).catch((e) => {
+        throw new InternalServerErrorException(e);
       });
     } catch (e) {
       throw new InternalServerErrorException(e);
     }
   }
 
-  async findAll(paginationQuery: PaginationQueryDto): Promise<StatEntity[]> {
+  async findAll(paginationQuery: PaginationQueryDto): Promise<{ data: StatEntity[], total: number}> {
     const { page = 1, limit = 10 } = paginationQuery ?? {};
 
-    return (await this.statsRepository.findAndCount({
+    const [data, total] = await this.statsRepository.findAndCount({
       skip: (page - 1) * limit,
       take: limit,
-    }))[0];
+      order: {
+        date: "DESC",
+      },
+      relations: {
+        device: true,
+      },
+    });
+
+    return {
+      data,
+      total,
+    };
   }
 
   async findDevices(paginationQuery: PaginationQueryDto): Promise<DeviceEntity[]> {

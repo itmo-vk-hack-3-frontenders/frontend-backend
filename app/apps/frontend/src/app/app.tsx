@@ -1,11 +1,9 @@
-import NxWelcome from "./nx-welcome";
+import "./index.scss";
+import { AppRouterProvider } from "./providers/AppRouterProvider";
 
 export function App() {
   return (
-    <>
-      <NxWelcome title="frontend" />
-      <div />
-    </>
+    <AppRouterProvider />
   );
 }
 

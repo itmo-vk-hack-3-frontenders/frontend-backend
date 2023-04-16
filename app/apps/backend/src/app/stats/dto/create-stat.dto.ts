@@ -1,4 +1,4 @@
-import { HttpStatus, RequestMethod } from "@nestjs/common";
+import { HttpStatus } from "@nestjs/common";
 import { ApiProperty } from "@nestjs/swagger";
 import { IsEnum, IsPositive, IsString, IsUrl } from "class-validator";
 
@@ -8,8 +8,8 @@ class StatDto {
   url: string;
 
   @ApiProperty()
-  @IsEnum(RequestMethod)
-  method: RequestMethod;
+  @IsString()
+  method: string;
 
   @ApiProperty()
   @IsEnum(HttpStatus)
@@ -43,7 +43,7 @@ class DeviceDto {
 
   @ApiProperty()
   @IsString()
-  deviceId: string;
+  id: string;
 
   @ApiProperty()
   @IsString()

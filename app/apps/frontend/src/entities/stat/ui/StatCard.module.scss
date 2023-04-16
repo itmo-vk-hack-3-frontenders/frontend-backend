@@ -1,0 +1,62 @@
+.card {
+  width: 100% !important;
+  flex: 1 1 30%;
+  margin: 0 !important;
+
+  &__body {
+    padding: 8px 16px;
+
+    h3 {
+      color: var(--vkui--color_accent_blue);
+    }
+  }
+
+  &__request {
+    margin-bottom: 12px;
+    display: flex;
+    gap: 8px;
+  }
+
+  &__meta {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    color: var(--vkui--color_accent_gray);
+    margin: 4px 0;
+
+    span:first-child {
+      flex: 0 0 5%;
+      max-width: 32px;
+    }
+
+    svg {
+      width: 20px !important;
+      height: 20px !important;
+    }
+
+    & > *  {
+      color: var(--vkui--color_accent_gray);
+    }
+  }
+
+  &__method, &__status {
+    display: block;
+    width: fit-content;
+    margin-top: 4px;
+    font-weight: bold;
+    text-transform: capitalize;
+    font-size: .8rem;
+    padding: 1px 4px;
+    border-radius: 4px;
+  }
+
+  &__method {
+    color: var(--vkui--color_accent_blue);
+    background: rgba(#3f8ae0, 20%);
+  }
+
+  &__status {
+    color: var(--vkui--color_accent_green);
+    background: rgba(#4bb34b, 20%);
+  }
+}
