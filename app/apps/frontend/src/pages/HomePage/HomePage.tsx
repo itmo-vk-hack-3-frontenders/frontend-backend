@@ -3,7 +3,7 @@ import { LineChart, Stat } from "../../shared";
 import { FilterByDuration, FilterByLocation, FilterByOS, FilterDatetime } from "../../features";
 import styles from "./HomePage.module.scss";
 import { AppLayout } from "../../shared";
-import { $stats, $totalPages, fetchStatsFx } from "../../entities";
+import { $stats, $totalPages, fetchDevicesFx, fetchStatsFx } from "../../entities";
 import { StatCard } from "../../entities";
 import { useStore } from "effector-react";
 import { Group, Pagination, ScreenSpinner } from "@vkontakte/vkui";
@@ -40,6 +40,7 @@ export const HomePage: FC = () => {
 
   useEffect(() => {
     fetchStatsFx();
+    fetchDevicesFx();
   }, []);
 
   return (
@@ -71,12 +72,11 @@ export const HomePage: FC = () => {
             }
           </div>
         }
-        <Pagination className={styles.homePage__pagination} totalPages={pages} />
+        <Pagination className={styles.homePage__pagination} />
       </Group>
-      {/*<LineChart data={chartDirectionSelector(stats)} options={options} />*/}
       <Group header={(
         <h4>
-        Статистика по объему трафика
+          Статистика по объему трафика
         </h4>
       )}>
         <VictoryChart

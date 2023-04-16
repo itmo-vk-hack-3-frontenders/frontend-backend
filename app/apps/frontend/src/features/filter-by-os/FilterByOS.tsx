@@ -1,25 +1,15 @@
 import { ChangeEvent, FC } from "react";
 import { CustomSelectOption, Select } from "@vkontakte/vkui";
 import { useQueryParams } from "../../shared";
-import { applyOsFilter } from "../../entities";
+import { $devices, applyOsFilter } from "../../entities";
+import { useStore } from "effector-react";
 
 const FILTER_KEY = "by-os";
 
-const list = [
-  {
-    label: "34543",
-    value: "3",
-  },
-  {
-    label: "5.54.35",
-    value: "4",
-  },
-];
-
 export const FilterByOS: FC = () => {
+  const devises = useStore($devices);
   const { getQueryParam, setQueryParam } = useQueryParams();
   const value = getQueryParam(FILTER_KEY);
-
   const onChange = (evt: ChangeEvent<HTMLSelectElement>) => {
     setQueryParam(FILTER_KEY, evt.target.value);
     applyOsFilter(evt.target.value);
@@ -28,11 +18,11 @@ export const FilterByOS: FC = () => {
   return (
     <div>
       <h5>
-        Длина запроса
+        OS
       </h5>
       <Select
-        options={list}
-        placeholder={"OS"}
+        options={Array.from(new Set(devises.map(item => item.os))).map(item => ({ value: item, label: item }))}
+        placeholder={"Выберете OS"}
         searchable={true}
         value={value}
         renderOption={({ ...restProps }) => (
