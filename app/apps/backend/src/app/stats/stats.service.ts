@@ -17,7 +17,7 @@ export class StatsService {
 
   async create(createStatDto: CreateStatDto): Promise<StatEntity> {
     try {
-      await this.deviceRepository.manager.transaction(async () => {
+      const device = await this.deviceRepository.manager.transaction(async () => {
         const entity = this.deviceRepository.create({
           ...createStatDto.device,
           id: createStatDto.device.deviceId,
@@ -29,7 +29,10 @@ export class StatsService {
       });
 
       return this.statsRepository.manager.transaction(async () => {
-        const entity = this.statsRepository.create(createStatDto.stat);
+        const entity = this.statsRepository.create({
+          ...createStatDto.stat,
+          device,
+        });
         return this.statsRepository.save(entity).catch(() => {
           throw new ConflictException();
         });
