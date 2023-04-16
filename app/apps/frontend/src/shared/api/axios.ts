@@ -1,6 +1,6 @@
 import Axios, { AxiosInstance } from "axios";
 
-const host = "http://172.30.109.64:4200/";
+const host = "http://localhost:3000/api/";
 
 const createAxios = (): AxiosInstance => {
   const instance = Axios.create({

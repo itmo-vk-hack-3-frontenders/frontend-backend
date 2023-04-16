@@ -20,12 +20,10 @@ const devices = Array.from({ length: 20 }, (_, index) => ({
   osVersion: `14.${index % 3}`,
 }));
 
-
 const fetchDevices = async (): Promise<Device[]> => {
   try {
-    const response = await axios.get("/api/stats");
-    return devices;
-    return response.data;
+    const { data } = await axios.get("/stats");
+    return data;
   } catch (error) {
     return [];
   }
@@ -33,9 +31,8 @@ const fetchDevices = async (): Promise<Device[]> => {
 
 const fetchStat = async (): Promise<Stat[]> => {
   try {
-    return stats;
-    const response = await axios.get("/api/stats/devices");
-    return response.data;
+    const { data } = await axios.get("/api/stats/devices");
+    return data;
   } catch (error) {
     return [];
   }
