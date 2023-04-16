@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { AppLayout } from "../../widgets";
 import { LineChart } from "../../shared/uikit/LineChart";
-import { FilterSelect } from "../../features";
+import { FilterDatetime, FilterSelect } from "../../features";
 
 
 const data = {
@@ -27,19 +27,20 @@ const options = {
 
 const list = [
   {
-    label: "fsdfds",
-    value: "dsfsdf",
+    label: "34543",
+    value: "3",
   },
   {
-    label: "fs34s",
-    value: "dsdsfdfsdf",
+    label: "5.54.35",
+    value: "4",
   },
 ];
 
 export const HomePage: FC = () => {
   return (
     <AppLayout>
-      <FilterSelect options={list} placeholder="Версия os" />
+      <FilterDatetime />
+      <FilterSelect keyParam="filter-os" options={list} placeholder="Версия os" />
       <LineChart data={data} options={options} />
     </AppLayout>
   );

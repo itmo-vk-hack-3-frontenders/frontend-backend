@@ -1,7 +1,8 @@
-import { HttpStatus } from "./httpStatus.enum";
+import { HttpStatus } from "./httpStatus";
 import { RequestMethod } from "./requestMethod.enum";
 
 export interface Stat {
+  deviceId: string;
   url: string;
   method: RequestMethod;
   statusCode: HttpStatus;
