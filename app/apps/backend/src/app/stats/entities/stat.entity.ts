@@ -31,8 +31,8 @@ export class StatEntity {
   @ApiProperty({
     description: "Дата выполнения запроса",
   })
-  @Column({ type: "timestamp" })
-  date: Date;
+  @Column({ type: "numeric" })
+  date: number;
 
   @ApiProperty({
     description: "Время выполнения запроса, в мс",

@@ -6,7 +6,6 @@ import {
   Param,
   Delete,
   Query,
-  ParseUUIDPipe,
   ParseIntPipe,
   DefaultValuePipe,
 } from "@nestjs/common";
@@ -62,7 +61,7 @@ export class StatsController {
   @SwaggerGet()
   @Get("devices/:id")
   async findDevice(
-    @Param("id", ParseUUIDPipe) id: string,
+    @Param("id") id: string,
   ): Promise<DeviceEntity> {
     return this.statsService.findDevice(id);
   }

@@ -43,7 +43,7 @@ class DeviceDto {
 
   @ApiProperty()
   @IsString()
-  deviceId: string;
+  id: string;
 
   @ApiProperty()
   @IsString()
