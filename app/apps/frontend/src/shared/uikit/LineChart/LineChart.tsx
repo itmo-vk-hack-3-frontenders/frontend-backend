@@ -1,18 +1,29 @@
 import React, { useEffect, useRef } from "react";
 import Chart, { ChartData, ChartOptions } from "chart.js/auto";
 
-// Импортируем контроллер для графика типа "line"
 import { LineController, LineElement, PointElement, LinearScale, Title, Tooltip } from "chart.js";
 
-// Регистрируем контроллер для графика типа "line"
 Chart.register(LineController, LineElement, PointElement, LinearScale, Title, Tooltip);
 
 interface LineChartProps {
+  type?: "line" | "bar";
   data: ChartData;
   options?: ChartOptions;
 }
 
-export const LineChart: React.FC<LineChartProps> = ({ data, options }) => {
+const plugin = {
+  id: "customCanvasBackgroundColor",
+  beforeDraw: (chart, args, options) => {
+    const { ctx } = chart;
+    ctx.save();
+    ctx.globalCompositeOperation = "destination-over";
+    ctx.fillStyle = options.color || "#99ffff";
+    ctx.fillRect(0, 0, chart.width, chart.height);
+    ctx.restore();
+  },
+};
+
+export const LineChart: React.FC<LineChartProps> = ({ type = "line", data, options }) => {
   const chartRef = useRef<HTMLCanvasElement | null>(null);
   const chartInstanceRef = useRef<Chart | null>(null);
 
@@ -22,9 +33,17 @@ export const LineChart: React.FC<LineChartProps> = ({ data, options }) => {
         chartInstanceRef.current.destroy();
       }
       chartInstanceRef.current = new Chart(chartRef.current, {
-        type: "line",
+        type,
         data,
-        options,
+        options: {
+          plugins: {
+            customCanvasBackgroundColor: {
+              color: "lightGreen",
+            },
+          },
+          ...options,
+        },
+        plugins: [plugin],
       });
     }
   }, [data, options]);

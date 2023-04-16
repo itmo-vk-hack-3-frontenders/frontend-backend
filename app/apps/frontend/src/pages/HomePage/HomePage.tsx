@@ -29,6 +29,19 @@ const options = {
   },
 };
 
+const chartDirectionSelector = (stats: Stat[]): ChartData => {
+  return {
+    labels: stats.map(item => item.date).sort((a, b) => b - a).map(item => new Date(+item).toLocaleTimeString()),
+    datasets: [
+      {
+        label: "Duration",
+        data: stats.map(item => item.duration),
+        borderColor: "rgb(75, 192, 192)",
+        // tension: 20000,
+      },
+    ],
+  };
+};
 
 export const HomePage: FC = () => {
   const stats = useStore($stats);
@@ -69,7 +82,7 @@ export const HomePage: FC = () => {
         }
         <Pagination className={styles.homePage__pagination} />
       </Group>
-      {/*<LineChart data={data} options={options} />*/}
+      <LineChart data={chartDirectionSelector(statsState)} options={options} />
     </AppLayout>
   );
 };
