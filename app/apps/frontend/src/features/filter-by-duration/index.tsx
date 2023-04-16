@@ -19,7 +19,7 @@ export const FilterByDuration: FC = () => {
       <h5>
         Фильтр по длительности запроса
       </h5>
-      <Slider max={20000} min={0} value={value} onChange={onChange} />
+      <Slider max={15000} min={0} value={value} onChange={onChange} />
       <Input readOnly value={`${value.toFixed(2)} ms`} />
     </div>
   );

@@ -35,7 +35,7 @@ export const StatCard: FC<StatCardProps> = memo((props) => {
           <span>
             <Icon20BombOutline />
           </span>
-          {`Запрос занял ${Math.floor(data.duration / 1000)} с.`}
+          {`Запрос занял ${Math.floor(data.duration)} мс.`}
         </span>
         <span className={styles.card__meta}>
           <span>
