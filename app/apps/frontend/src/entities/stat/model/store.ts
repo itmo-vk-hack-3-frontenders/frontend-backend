@@ -4,7 +4,7 @@ import { ApiService } from "../../../shared";
 
 export const resetStats = createEvent<void>("resetStats");
 export const applyDurationFilter = createEvent<number>();
-export const applyLocationFilter = createEvent<string>();
+export const applyMethodFilter = createEvent<string>();
 export const applyOsFilter = createEvent<string>();
 
 export const applyDateFilter = createEvent<{
@@ -25,8 +25,8 @@ export const $stats = createStore<Stat[]>([])
   .on(applyDurationFilter, (state, length) => {
     return [...state].filter(i => i.duration >= length);
   })
-  .on(applyLocationFilter, (state, location) => {
-    return [...state].filter(i => i.locationOfRequest === location);
+  .on(applyMethodFilter, (state, method) => {
+    return [...state].filter(i => i.method === method);
   })
   .on(applyOsFilter, (state, os) => {
     return [...state].filter(i => i.device.os === os);
