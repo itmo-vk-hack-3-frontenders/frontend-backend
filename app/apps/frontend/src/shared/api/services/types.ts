@@ -1,8 +1,15 @@
 import { HttpStatus } from "./httpStatus";
 import { RequestMethod } from "./requestMethod.enum";
 
-export interface Stat {
+export interface Device {
+  buildVersion: string;
+  os: string;
   deviceId: string;
+  osVersion: string;
+}
+
+export interface Stat {
+  device: Device;
   url: string;
   method: RequestMethod;
   statusCode: HttpStatus;
@@ -10,11 +17,4 @@ export interface Stat {
   duration: number;
   size: number;
   locationOfRequest: string;
-}
-
-export interface Device {
-  buildVersion: string;
-  os: string;
-  deviceId: string;
-  osVersion: string;
 }
