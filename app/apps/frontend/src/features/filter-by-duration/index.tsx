@@ -1,15 +1,23 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { Headline, Input, Slider } from "@vkontakte/vkui";
+import { useQueryParams } from "../../shared";
+
+const FILTER_KEY = "by-duration";
 
 export const FilterByDuration: FC = () => {
-  const [value, setValue] = useState(24.4234);
+  const { getQueryParam, setQueryParam } = useQueryParams();
+  const value = Number(getQueryParam(FILTER_KEY));
+
+  const onChange = (value: number) => {
+    setQueryParam(FILTER_KEY, String(value));
+  };
 
   return (
     <div>
       <Headline>
         Фильтр по длительности запроса
       </Headline>
-      <Slider max={30} min={10} value={value} onChange={setValue} />
+      <Slider max={20} min={0} value={value} onChange={onChange} />
       <Input readOnly value={value} />
     </div>
   );
