@@ -10,13 +10,13 @@ export const FilterDatetime: FC = () => {
   const end = Number(getQueryParam("endtime"));
 
   const onChangeStart = (date: Date) => {
-    setQueryParam("starttime", String(date && Math.floor(date.getTime() / 1000)));
-    applyDateFilter({ start: date, end: new Date(end * 1000) });
+    setQueryParam("starttime", String(date && date.getTime()));
+    applyDateFilter({ start: date, end: new Date(end) });
   };
 
   const onChangeEnd = (date: Date) => {
-    setQueryParam("endtime", String(date && Math.floor(date.getTime() / 1000)));
-    applyDateFilter({  start:  new Date(start * 1000), end: date });
+    setQueryParam("endtime", String(date && date.getTime()));
+    applyDateFilter({ start: new Date(start), end: date });
   };
 
   return (
@@ -25,9 +25,9 @@ export const FilterDatetime: FC = () => {
         Выбор времени
       </h5>
       <div className={styles.filter__pickers}>
-        <DateInput value={start ? new Date(start * 1000) : new Date()}
+        <DateInput value={start ? new Date(+start) : new Date()}
           onChange={onChangeStart} />
-        <DateInput value={end ? new Date(end * 1000) :  new Date()}
+        <DateInput value={end ? new Date(+end) : new Date()}
           onChange={onChangeEnd} />
       </div>
     </div>

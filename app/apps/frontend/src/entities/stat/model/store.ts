@@ -32,6 +32,6 @@ export const $stats = createStore<Stat[]>([])
     return [...state].filter(i => i.device.os === os);
   })
   .on(applyDateFilter, (state, dates) => {
-    return [...state].filter(i => new Date(i.date) >= dates.start && new Date(i.date) <= dates.end);
+    return [...state].filter(i => i.date >= dates.start.getTime() && i.date <= dates.end.getTime());
   })
   .reset(resetStats);
